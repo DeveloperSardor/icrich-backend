@@ -21,6 +21,9 @@ desc_uz : {
 },
 img : {
     type : String
+},
+date : {
+    type : Date
 }
 }, {
     timestamps : true

@@ -24,6 +24,9 @@ text_ru : {
 text_uz : {
     type : String
 },
+date : {
+    type : Date
+}
 }, {
     timestamps : true
 })

@@ -1,4 +1,4 @@
-import { model, Schema, Types } from "mongoose";
+import { model, Schema } from "mongoose";
 
 
 const LocalListSchema = new Schema({
@@ -13,7 +13,12 @@ const LocalListSchema = new Schema({
     },
     link : {
         type : String
+    },
+    date : {
+        type : Date
     }
+}, {
+    timestamps : true
 })
 
 

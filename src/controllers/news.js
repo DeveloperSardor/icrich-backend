@@ -32,7 +32,7 @@ export class NewsContr{
                 const skip = (parseInt(page) - 1) * parseInt(limit);
                 const total = await NewsSchema.countDocuments(searchQuery);
                 const news = await NewsSchema.find(searchQuery)
-                    .sort({ createdAt: -1 })
+                    .sort({ date: -1, createdAt: -1 })
                     .limit(parseInt(limit))
                     .skip(skip);
 
@@ -62,7 +62,7 @@ export class NewsContr{
 
     static async Post(req, res) {
         try {
-            const { title_en, title_ru, title_uz, text_en, text_ru, text_uz, youtube_link, files } = req.body;
+            const { title_en, title_ru, title_uz, text_en, text_ru, text_uz, youtube_link, files, date } = req.body;
         
             if (youtube_link && files && files.length > 0) {
                 throw new Error('You can only submit either a YouTube link or files, not both.');
@@ -80,6 +80,7 @@ export class NewsContr{
                 text_ru,
                 text_uz,
                 youtube_link,
+                date,
                 files: files?.map((image) => ({ type_file: 'image', link: image })),
             });
         
@@ -106,7 +107,7 @@ export class NewsContr{
             if (!findNewsById) {
                 throw new Error(`News not found`);
             }
-            const { title_en, title_ru, title_uz, text_en, text_ru, text_uz, youtube_link, files } = req.body;
+            const { title_en, title_ru, title_uz, text_en, text_ru, text_uz, youtube_link, files, date } = req.body;
         
             if (youtube_link && files && files.length > 0) {
                 throw new Error('You can only submit either a YouTube link or files, not both.');
@@ -122,6 +123,7 @@ export class NewsContr{
                     text_ru, 
                     text_uz, 
                     youtube_link, 
+                    date,
                     files: files?.map((image) => ({ type_file: 'image', link: image })) 
                 }, 
                 { new: true }

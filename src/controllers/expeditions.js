@@ -19,7 +19,7 @@ export class ExpeditionsContr {
             status : 200,
             message : "Expeditions datas",
             success : true,
-            data : await ExpeditionsSchema.find()
+            data : await ExpeditionsSchema.find().sort({ date: -1, createdAt: -1 })
         })
       }
     } catch (error) {
@@ -43,6 +43,7 @@ export class ExpeditionsContr {
         text_en,
         text_ru,
         text_uz,
+        date,
       } = req.body;
 
       const newExpedition = new ExpeditionsSchema({
@@ -54,6 +55,7 @@ export class ExpeditionsContr {
         text_en,
         text_ru,
         text_uz,
+        date,
       });
 
       await newExpedition.save();
@@ -86,6 +88,7 @@ export class ExpeditionsContr {
         text_en,
         text_ru,
         text_uz,
+        date,
       } = req.body;
 
       const updatedExpedition = await ExpeditionsSchema.findByIdAndUpdate(
@@ -99,6 +102,7 @@ export class ExpeditionsContr {
           text_en,
           text_ru,
           text_uz,
+          date,
         },
         { new: true } // Yangilangan ma'lumotni qaytaradi
       );

@@ -18,7 +18,7 @@ export class JobVacanciesContr {
           status: 200,
           message: `Vacancies`,
           success: true,
-          data: await JobVacanciesSchema.find().populate('role'),
+          data: await JobVacanciesSchema.find().sort({ date: -1, createdAt: -1 }).populate('role'),
         });
       }
     } catch (error) {
@@ -32,7 +32,7 @@ export class JobVacanciesContr {
 
   static async Post(req, res) {
     try {
-      const { role, title_en, title_ru, title_uz, text_en, text_ru, text_uz } =
+      const { role, title_en, title_ru, title_uz, text_en, text_ru, text_uz, date } =
         req.body;
       const newVacancy = await JobVacanciesSchema.create({
         role,
@@ -42,6 +42,7 @@ export class JobVacanciesContr {
         text_en,
         text_ru,
         text_uz,
+        date
       });
       res.send({
         status: 201,
@@ -65,11 +66,11 @@ export class JobVacanciesContr {
       if (!findVacancyById) {
         throw new Error(`Not found vacancy`);
       }
-      const { role, title_en, title_ru, title_uz, text_en, text_ru, text_uz } =
+      const { role, title_en, title_ru, title_uz, text_en, text_ru, text_uz, date } =
         req.body;
       const updatedVacancy = await JobVacanciesSchema.findByIdAndUpdate(
         id,
-        { role, title_en, title_ru, title_uz, text_en, text_ru, text_uz },
+        { role, title_en, title_ru, title_uz, text_en, text_ru, text_uz, date },
         { new: true }
       );
       res.send({

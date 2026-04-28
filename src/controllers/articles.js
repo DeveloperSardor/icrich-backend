@@ -15,7 +15,7 @@ export class ArticlesContr {
           data: findArticle,
         });
       } else {
-        const articles = await ArticlesSchema.find().sort({ createdAt: -1 });
+        const articles = await ArticlesSchema.find().sort({ date: -1, createdAt: -1 });
         res.send({
           status: 200,
           message: "All Articles",
@@ -34,7 +34,7 @@ export class ArticlesContr {
 
   static async Post(req, res) {
     try {
-      const { title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, pdf_file } = req.body;
+      const { title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, pdf_file, date } = req.body;
       console.log(pdf_file);
       
       const newArticle = await ArticlesSchema.create({
@@ -45,6 +45,7 @@ export class ArticlesContr {
         desc_ru,
         desc_uz,
         pdf_file,
+        date
       });
 
       res.status(201).send({
@@ -68,10 +69,10 @@ export class ArticlesContr {
       const existingArticle = await ArticlesSchema.findById(id);
       if (!existingArticle) throw new Error(`Article not found`);
 
-      const { title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, pdf_file } = req.body;
+      const { title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, pdf_file, date } = req.body;
       const updatedArticle = await ArticlesSchema.findByIdAndUpdate(
         id,
-        { title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, pdf_file },
+        { title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, pdf_file, date },
         { new: true }
       );
 

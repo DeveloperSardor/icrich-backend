@@ -16,7 +16,7 @@ export class AnnouncementContr {
       const recommendedAnnouncements = await AnnouncementSchema.find({
         _id: { $ne: id }, // Hozirgi e'lonni olib tashlash
       })
-        .sort({ createdAt: -1 }) // So'nggi e'lonlar birinchi bo'lsin
+        .sort({ date: -1, createdAt: -1 }) // So'nggi e'lonlar birinchi bo'lsin
         .limit(3); // Faqat oxirgi 3 ta e'lonni olish
 
       // Javobni yuborish
@@ -41,7 +41,7 @@ export class AnnouncementContr {
           status: 200,
           message: "Announcements",
           success: true,
-          data: await AnnouncementSchema.find().sort({ createdAt : -1 }),
+          data: await AnnouncementSchema.find().sort({ date: -1, createdAt : -1 }),
         });
       }
     } catch (error) {
@@ -55,7 +55,7 @@ export class AnnouncementContr {
 
   static async Post(req, res){
     try {
-        const { title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, img } = req.body;
+        const { title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, img, date } = req.body;
         
         // Pass the fields as an object
         const newAnnouncement = await AnnouncementSchema.create({
@@ -65,7 +65,8 @@ export class AnnouncementContr {
             desc_en,
             desc_ru,
             desc_uz,
-            img
+            img,
+            date
         });
         
         res.send({
@@ -92,9 +93,9 @@ export class AnnouncementContr {
          if(!announcementById){
             throw new Error(`Not found announcement`)
          }
-         const { title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, img } = req.body;
+         const { title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, img, date } = req.body;
 
-         const updatedAnnouncement = await AnnouncementSchema.findByIdAndUpdate(id, {title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, img}, {new : true})
+         const updatedAnnouncement = await AnnouncementSchema.findByIdAndUpdate(id, {title_en, title_ru, title_uz, desc_en, desc_ru, desc_uz, img, date}, {new : true})
          res.send({
             status : 200,
             message : `Successfuly updated`,

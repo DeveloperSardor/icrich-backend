@@ -10,6 +10,7 @@ const UneskoSchema = new Schema({
     text_en : {type : String},
     text_ru : {type : String},
     text_uz : {type : String},
+    date : {type : Date},
 }, {
     timestamps : true
 })

@@ -59,7 +59,7 @@ export class NationalListContr {
 
       // Get paginated data
       const data = await NationalListSchema.find(query)
-        .sort({ createdAt: -1 })
+        .sort({ date: -1, createdAt: -1 })
         .skip(skip)
         .limit(limitNum);
 
@@ -98,6 +98,7 @@ export class NationalListContr {
         text_en,
         text_ru,
         text_uz,
+        date
       } = req.body;
 
       // Validation
@@ -134,6 +135,7 @@ export class NationalListContr {
         text_en,
         text_ru,
         text_uz,
+        date
       });
 
       await newNational.save();
@@ -166,6 +168,7 @@ export class NationalListContr {
         text_en,
         text_ru,
         text_uz,
+        date
       } = req.body;
 
       // Validation
@@ -196,6 +199,7 @@ export class NationalListContr {
           text_en,
           text_ru,
           text_uz,
+          date
         },
         { new: true, runValidators: true }
       );

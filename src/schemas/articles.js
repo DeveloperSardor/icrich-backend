@@ -7,7 +7,10 @@ const ArticlesSchema = new Schema({
     desc_en: { type: String },
     desc_ru: { type: String },
     desc_uz: { type: String },
-    pdf_file: { type: String } // img o'rniga pdf_file
+    pdf_file: { type: String }, // img o'rniga pdf_file
+    date: { type: Date }
+}, {
+    timestamps: true
 });
 
 export default model('Articles', ArticlesSchema);

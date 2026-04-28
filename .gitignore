@@ -9,6 +9,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Database dumps (shaxsiy ma’lumot bo‘lishi mumkin)
+backups/
+
 # Environment variables
 .env
 .env.*.local

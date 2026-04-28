@@ -26,6 +26,9 @@ const NewsSchema = new Schema ({
   }],
   youtube_link : {
     type : String
+  },
+  date : {
+    type : Date
   }
 }, {
     timestamps : true

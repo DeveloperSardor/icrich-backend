@@ -24,7 +24,10 @@ youtube_link : {
 },
 images : [{
     type : String
-}]
+}],
+date: {
+    type: Date
+}
 }, {
     timestamps : true
 })

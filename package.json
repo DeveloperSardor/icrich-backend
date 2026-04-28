@@ -6,7 +6,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "db:backup": "node scripts/backup-all.mjs",
+    "db:restore": "node scripts/restore-all.mjs",
+    "db:local-up": "docker compose -f ../docker-compose.yml up -d",
+    "db:local-down": "docker compose -f ../docker-compose.yml down",
+    "seed:admin": "node scripts/seed-admin.mjs"
   },
   "keywords": [],
   "author": "",

@@ -19,7 +19,7 @@ export class UneskoContr {
                     status : 200,
                     message : "Unesko datas",
                     success : true,
-                    data : await UneskoSchema.find()
+                    data : await UneskoSchema.find().sort({ date: -1, createdAt: -1 })
                 })
             }
         } catch (error) {
@@ -34,7 +34,7 @@ export class UneskoContr {
     // POST metodida yangi Unesco ma'lumotini qo'shish
     static async Post(req, res) {
         try {
-            const { youtube_link, images, title_en, title_ru, title_uz, text_en, text_ru, text_uz } = req.body;
+            const { youtube_link, images, title_en, title_ru, title_uz, text_en, text_ru, text_uz, date } = req.body;
 
             const newUnesko = new UneskoSchema({
                 youtube_link,
@@ -45,6 +45,7 @@ export class UneskoContr {
                 text_en,
                 text_ru,
                 text_uz,
+                date
             });
 
             await newUnesko.save();
@@ -68,7 +69,7 @@ export class UneskoContr {
     static async Put(req, res) {
         try {
             const { id } = req.params; // Yangilanishi kerak bo'lgan ma'lumotning ID
-            const { youtube_link, images, title_en, title_ru, title_uz, text_en, text_ru, text_uz } = req.body;
+            const { youtube_link, images, title_en, title_ru, title_uz, text_en, text_ru, text_uz, date } = req.body;
 
             const updatedUnesko = await UneskoSchema.findByIdAndUpdate(
                 id,
@@ -81,6 +82,7 @@ export class UneskoContr {
                     text_en,
                     text_ru,
                     text_uz,
+                    date
                 },
                 { new: true } // Yangilangan ma'lumotni qaytaradi
             );
