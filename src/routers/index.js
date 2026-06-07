@@ -21,11 +21,12 @@ import LocalListRouter from "./local-list.js";
 import AdminRouter from "./admin.js";
 import AuditRouter from "./audit.js";
 import ExpeditionRouter from './expeditions.js'
+import HealthRouter from './health.js'
 
 
 const ApiRouter = Router();
 
-
+ApiRouter.use('/health', HealthRouter)
 
 ApiRouter.use('/activity', ActivityRouter)
 ApiRouter.use('/announcement', AnnouncementRouter)

@@ -1,0 +1,17 @@
+# Production / local MongoDB (VPS da Atlas o'rniga tavsiya etiladi)
+#   docker compose up -d
+#   DB_URL=mongodb://127.0.0.1:27017/icrich
+services:
+  mongodb:
+    image: mongo:7
+    container_name: icrich-mongodb
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - icrich_mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: icrich
+
+volumes:
+  icrich_mongo_data:

@@ -7,10 +7,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
+    "start": "node server.js",
+    "pm2:prod": "pm2 start ecosystem.config.cjs --env production",
     "db:backup": "node scripts/backup-all.mjs",
     "db:restore": "node scripts/restore-all.mjs",
-    "db:local-up": "docker compose -f ../docker-compose.yml up -d",
-    "db:local-down": "docker compose -f ../docker-compose.yml down",
+    "db:local-up": "docker compose up -d",
+    "db:local-down": "docker compose down",
     "seed:admin": "node scripts/seed-admin.mjs"
   },
   "keywords": [],
