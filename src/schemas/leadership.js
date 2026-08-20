@@ -79,6 +79,11 @@ const LeadershipSchema = new Schema({
       type: String,
       enum: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
     }],
+    // Specific calendar dates (manually entered), in addition to/instead of recurring weekdays
+    dates: [{
+      type: String,
+      match: /^\d{4}-\d{2}-\d{2}$/  // YYYY-MM-DD format
+    }],
     start: {
       type: String,
       match: /^([01]\d|2[0-3]):([0-5]\d)$/  // HH:MM format

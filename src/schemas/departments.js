@@ -127,7 +127,7 @@ DepartmentSchema.virtual('deputies', {
 });
 
 // Generate slug from title if not provided
-DepartmentSchema.pre('save', function(next) {
+DepartmentSchema.pre('validate', function(next) {
   if (this.isModified('title') && !this.slug) {
     this.slug = this.title.en
       .toLowerCase()
