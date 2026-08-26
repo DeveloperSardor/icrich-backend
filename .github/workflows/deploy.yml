@@ -1,0 +1,42 @@
+name: Deploy Backend
+
+# Push to main -> the self-hosted runner on the server pulls and restarts PM2.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-backend
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Deploy in place
+        # Set this repo variable to the backend folder on the server,
+        # e.g. /home/user/icrich/backend
+        working-directory: ${{ vars.DEPLOY_PATH }}
+        run: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+          set -e
+
+          echo "==> Deploying backend in $(pwd)"
+
+          # .env is already gitignored here, but keep a safety copy anyway
+          cp -f .env /tmp/icrich-backend.env.bak 2>/dev/null || true
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          [ -f .env ] || cp -f /tmp/icrich-backend.env.bak .env 2>/dev/null || true
+
+          npm ci
+
+          # Restart the API process (id/name: icrich-server) with fresh env
+          pm2 restart icrich-server --update-env
+          pm2 save
+
+          echo "==> Backend deployed and restarted."
